@@ -104,11 +104,13 @@ void loop() {
   
   if (cnt > freq){
     cnt = 0;
-    String content = String("01") +
-      String("[1 ") + String(U1) + "V " + String(int(100 * SUM1) / freq / 100.0) + String("W]") +
-      String("[2 ") + String(U2) + "V " + String(int(100 * SUM2) / freq / 100.0) + String("W]") +
-      String("[3 ") + String(U3) + "V " + String(int(100 * SUM3) / freq / 100.0) + String("W]") +
-      String("[4 ") + String(U4) + "V " + String(int(100 * SUM4) / freq / 100.0) + String("W]");
+    String content = 
+      String("{\"protocol\":\"01\",\"data\":{") +
+      String("\"1\":[") + String(int(100 * SUM1) / freq / 100.0) + String(",\"W\"],") +
+      String("\"2\":[") + String(int(100 * SUM2) / freq / 100.0) + String(",\"W\"],") +
+      String("\"3\":[") + String(int(100 * SUM3) / freq / 100.0) + String(",\"W\"],") +
+      String("\"4\":[") + String(int(100 * SUM4) / freq / 100.0) + String(",\"W\"]") +
+      String("}}");
     Serial.println(content);
     SUM1 = 0;
     SUM2 = 0;

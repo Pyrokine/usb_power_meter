@@ -56,7 +56,7 @@ void loop() {
     client->setInsecure();  
     
     HTTPClient https;
-    String serialData = "01";
+    String serialData = "";
     while (Serial.available() == 0){};
     delay(200);
     while (Serial.available() > 0){
@@ -91,11 +91,16 @@ void loop() {
     }
 
 //    Serial.println(content);
+    String postRequest = (String)("POST ") + "/ HTTP/1.1\r\n" +
+       "Content-Type: application/json;charset=utf-8\r\n" +
+       "Content-Length: " + content.length() + "\r\n" +
+       content + "\r\n";
+
     if (https.begin(*client, host_choice)){
-      int httpCode = https.POST(content);
+      int httpCode = https.POST(postRequest);
       is_web = String(httpCode);
 //      Serial.println(httpCode);
-      http.end();
+      https.end();
     }
   }
   else{
