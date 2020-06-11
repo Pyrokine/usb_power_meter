@@ -93,13 +93,9 @@ void loop() {
 //    Serial.println(content);
     if (https.begin(*client, host_choice)){
       int httpCode = https.POST(content);
-      if (httpCode == 200){
-        is_web = "1";
-      }
-      else{
-        is_web = "0";
-      }
+      is_web = String(httpCode);
 //      Serial.println(httpCode);
+      http.end();
     }
   }
   else{

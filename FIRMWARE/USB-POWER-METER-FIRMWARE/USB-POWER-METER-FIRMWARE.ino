@@ -20,7 +20,7 @@
 U8X8_SSD1306_128X64_NONAME_HW_I2C u8x8(U8X8_PIN_NONE); //RESET
 int cnt = 0, freq = 20;
 float SUM1 = 0, SUM2 = 0, SUM3 = 0, SUM4 = 0;
-bool is_wifi = false, is_web = false;
+String wifi_status = "FOO", web_status = "FOO";
 SoftwareSerial mySerial(PA11, PA12); // RX, TX
 
 void setup() {
@@ -59,24 +59,19 @@ void loop() {
   while (Serial.available() > 0){
     serialData += char(Serial.read());
   }
-  if (serialData != "" && serialData.length() < 6){
+  if (serialData != "" && serialData.length() < 10){
     if (serialData[0] == 'A'){
+      mySerial.println(serialData);
       if (serialData[1] == '1'){
-        is_wifi = true;
+        wifi_status = "CON";
       }
       else if (serialData[1] == '0'){
-        is_wifi = false;
+        wifi_status = "DISCON";
       }
-      if (serialData[2] == '1'){
-        is_web = true;
-      }
-      else if (serialData[2] == '0'){
-        is_web = false;
-      }
+      web_status = String(serialData[2]) + String(serialData[3]) + String(serialData[4]);
     }
   }
 
-  mySerial.println(String(analogRead(USB1_I)));
   float U1 = analogRead(USB1_U) / 30.7; // x / 1023.0 * 3.3 * 10.1
   float I1 = analogRead(USB1_I) / 155.0; // x / 1023 * 3.3 / 100 / 0.005
   float P1 = U1 * I1;
@@ -101,22 +96,11 @@ void loop() {
   u8x8.print(USB3);
   u8x8.setCursor(0, 3);
   u8x8.print(USB4); 
-    if (is_wifi == true){
-    u8x8.setCursor(0, 4);
-    u8x8.print("WIFI CON   "); 
-  }
-  else{
-    u8x8.setCursor(0, 4);
-    u8x8.print("WIFI DISCON"); 
-  }
-  if (is_web == true){
-    u8x8.setCursor(0, 5);
-    u8x8.print("SERVER CON   "); 
-  }
-  else{
-    u8x8.setCursor(0, 5);
-    u8x8.print("SERVER DISCON"); 
-  }
+
+  u8x8.setCursor(0, 4);
+  u8x8.print(String("WIFI ") + wifi_status); 
+  u8x8.setCursor(0, 5);
+  u8x8.print(String("SERVER ") + web_status); 
   
   if (cnt > freq){
     cnt = 0;
