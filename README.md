@@ -11,8 +11,10 @@
 ## 数据格式
 
 “01”：  
-示例：  
-![Image text](https://github.com/Pyrokine/usb_power_meter/blob/master/FIRMWARE/ProtocolExample/01.png)  
+数据示例：  
+<img src="https://github.com/Pyrokine/usb_power_meter/blob/master/FIRMWARE/ProtocolExample/01.png" width="400" alt="01">  
+结果示例：  
+<img src="https://github.com/Pyrokine/usb_power_meter/blob/master/FIRMWARE/ProtocolExample/01Sample.png" width="400" alt="01Sample">  
 数据采用json格式转字符串发送，其中protocol指示出协议版本，内容在data中，每组数据中的key为数据（传感器）编号，value包含一个float型变量和一个str型变量，分别表示数值和单位，暂时未限制最大组数，可以根据实际情况调整
 
 
