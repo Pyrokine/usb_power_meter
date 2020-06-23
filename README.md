@@ -11,7 +11,7 @@
 ## 实物图  
 
 四口PD充电  
-<img src="https://github.com/Pyrokine/usb_power_meter/blob/master/FIRMWARE/ProtocolExample/PD-HW.png" width="400" alt="PD-HW">  
+<img src="https://github.com/Pyrokine/usb_power_meter/blob/master/FIRMWARE/ProtocolExample/PD-HW.jpg" width="400" alt="PD-HW">  
 <img src="https://github.com/Pyrokine/usb_power_meter/blob/master/FIRMWARE/ProtocolExample/PD-Data.png" width="400" alt="PD-Data">  
 
 三口QC充电  
@@ -31,7 +31,7 @@
 
 
 ## RSA加密
-算法的解释在[博客随笔](https://www.cnblogs.com/Pyrokine/p/13072526.html)
+算法的解释在[博客随笔](https://www.cnblogs.com/Pyrokine/p/13072526.html)  
 ASCII示例：999049050051052053054055  
 加密示例：<12345654321>[1111111111][2222222222][333333333]  
 利用公钥对上文字符串进行分组，每一组不超过n的长度，目前选用512位加密，因为加密时转换为ASCII码，首位设为999（ASCII无意义），之后拼接49个字符对应的ASCII码，即最长为150位长度的十进制，然后进行RSA加密，加密后字符串用英文中括号包裹，然后拼接，然后将设备ID用<>包裹拼接，然后向服务器进行post即可，可以使用https方式发送
